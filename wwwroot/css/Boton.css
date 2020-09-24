@@ -1,0 +1,20 @@
+.btn-Buscar{
+    background: #138bee;
+    color: white;
+    border-color: #138bee;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+
+.btn-Buscar:hover{
+    background: #44d4f8;
+}
+
+.btn-Buscar:active{
+    background: #138bee;
+    
+}
+

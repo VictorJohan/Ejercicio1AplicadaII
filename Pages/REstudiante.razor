@@ -1,0 +1,116 @@
+﻿@page "/Estudiantes"
+@page "/Estudiantes/{EstudianteId:int}"
+
+
+@inject IToastService toast
+
+<EditForm Model="Estudiante" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator/>
+    <div class= "card">
+        <div class= "card-header">
+            <h3>Registro de Estudiante</h3>
+        </div>
+        <div class= "car-body">
+            <form>
+                @*Estudiante Id*@
+                <div class="form-row aling-items-center">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Estudiante Id</label>
+                            <div class="input-group">
+                                <InputNumber @bind-Value="Estudiante.EstudianteId" class="form-control col-4"/>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @*Nombres*@
+                <div class="form-group">
+                    <label>Nombres</label>
+                    <InputText @bind-Value="Estudiante.Nombres" class="form-control"/>
+                    <ValidationMessage For="@(() => Estudiante.Nombres)"/>
+                </div>
+
+                @*Semestres*@
+                <div class="form-group">
+                    <label>Semestre</label>
+                    <InputNumber @bind-Value="Estudiante.Semestre" class="form-control"/>
+                    <ValidationMessage For="@(() => Estudiante.Semestre)"/>
+                </div>
+
+                @*Nacionalidad*@
+                <div class="form-group">
+                    <label>Nacionalidad</label>
+                    <InputSelect @bind-Value = "Estudiante.NacionalidadId" class="form-control">
+                        @foreach (var item in @nacionalidades)
+                        {
+                            <option value="@item.NacionalidadId">"@item.Nacionalidad"</option>
+                        }
+                    </InputSelect>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="card-footer">
+                <div class="form-group text-center" dispaly: inline-block>
+                    <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">Nuevo</button>
+                    <button type="submit" class="btn btn-lg btn-success" @onclick="Guardar">Guardar</button>
+                    <button type="button" class="btn btn-lg btn-danger" @onclick="Eliminar">Eliminar</button>
+                </div>
+            </div>
+    </div>
+</EditForm>
+
+@code{
+    
+    [Parameter]
+    public int EstudianteId { get; set; }
+
+    private Estudiantes Estudiante = new Estudiantes();
+    private List<Nacionalidades> nacionalidades;
+    protected override void OnInitialized(){
+        Nuevo();
+        nacionalidades = NacionalidadesBLL.GetNacionalidades();
+    }
+
+    public void Nuevo(){
+        Estudiante = new Estudiantes();
+    }
+
+    public void Buscar(){
+        var encontrado = EstudiantesBLL.Buscar(Estudiante.EstudianteId);
+
+        if(encontrado != null)
+            this.Estudiante = encontrado;
+        else
+            toast.ShowInfo("No encontrado.");
+    }
+
+    public void Guardar(){
+        if(EstudiantesBLL.Guardar(Estudiante))
+         {
+            Nuevo();
+            toast.ShowSuccess("Se guardó correctamente.");
+        }
+        else
+        {
+            toast.ShowError("No se logró guardar.");
+        }
+    }
+
+    public void Eliminar(){
+        if(EstudiantesBLL.Eliminar(Estudiante.EstudianteId))
+        {
+            Nuevo();
+            toast.ShowSuccess("Se ha eliminado el registro.");
+        }
+        else
+        {
+            toast.ShowError("No se logró eliminar.");
+        }
+    }
+}

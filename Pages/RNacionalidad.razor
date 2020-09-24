@@ -1,0 +1,104 @@
+@page "/Nacionalidad"
+@page "/Nacionalidades/{NacionalidadId:int}"
+
+@inject IToastService toast
+
+<EditForm Model="Nacionalidad" OnInvalidSubmit="Guardar">
+    <DataAnnotationsValidator/>
+    <div class="card">
+        <div class="card-header">
+            <h3>Registro Naacionalidad</h3>
+        </div>
+
+        <div class="card-body">
+            <form>
+                @*Nacionlalidad Id*@
+                <div class="form-row aling-items-center">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Naacionalidad Id</label>
+                            <div class="input-group">
+                                <InputText @bind-Value="Nacionalidad.NacionalidadId" class="form-control col-4"/>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar">Buscar</button>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+
+                @*Nacionalidad*@
+                <div class="form-group">
+                    <label>Nacionalidad</label>
+                    <InputText @bind-Value="Nacionalidad.Nacionalidad" class="form-control"/>
+                    <ValidationMessage For="@(() => Nacionalidad.Nacionalidad)"/>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <div class="form-group text-center" display: inline-block>
+            <button type="button" class="btn btn-lg btn-primary" @onclick="Nuevo">Nuevo</button>
+            <button type="submit" class="btn btn-lg btn-success" @onclick="Guardar">Guardar</button>
+            <button type="button" class=" btn btn-lg btn-danger" @onclick="Eliminar">Eliminar</button>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+
+    [Parameter]
+    public int NacionalidadId { get; set; }
+    private Nacionalidades Nacionalidad = new Nacionalidades();
+
+    protected override void OnInitialized()
+    {
+        Nuevo();
+    }
+
+    public void Buscar()
+    {
+        var encontrado = NacionalidadesBLL.Buscar(Nacionalidad.NacionalidadId);
+        if(encontrado != null)
+            this.Nacionalidad = encontrado;
+        else
+            toast.ShowInfo("No se encontro");
+    }
+
+    public void Nuevo()
+    {
+        Nacionalidad = new Nacionalidades();
+    }
+    public void Guardar()
+    {
+        if(NacionalidadesBLL.Guardar(Nacionalidad))
+        {
+            Nuevo();
+            toast.ShowSuccess("Se guardó correctamente.");
+        }
+        else
+        {
+            toast.ShowError("No se logró guardar.");
+        }
+            
+    }
+
+    public void Eliminar()
+    {
+        if(NacionalidadesBLL.Eliminar(Nacionalidad.NacionalidadId))
+        {
+            Nuevo();
+            toast.ShowSuccess("Se ha eliminado el registro.");
+        }
+        else
+        {
+            toast.ShowError("No se logró eliminar.");
+        }
+            
+    }
+}
+
+       
