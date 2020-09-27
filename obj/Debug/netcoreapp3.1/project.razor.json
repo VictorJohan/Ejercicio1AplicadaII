@@ -111,59 +111,6 @@
         }
       },
       {
-        "HashCode": 454312850,
-        "Kind": "Components.Component",
-        "Name": "Ejercicio1AplicadaII.Pages.REstudiante",
-        "AssemblyName": "Ejercicio1AplicadaII",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "REstudiante"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "EstudianteId",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "EstudianteId"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Ejercicio1AplicadaII.Pages.REstudiante"
-        }
-      },
-      {
-        "HashCode": 2051355297,
-        "Kind": "Components.Component",
-        "Name": "Ejercicio1AplicadaII.Pages.REstudiante",
-        "AssemblyName": "Ejercicio1AplicadaII",
-        "CaseSensitive": true,
-        "TagMatchingRules": [
-          {
-            "TagName": "Ejercicio1AplicadaII.Pages.REstudiante"
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "Components.Component",
-            "Name": "EstudianteId",
-            "TypeName": "System.Int32",
-            "Metadata": {
-              "Common.PropertyName": "EstudianteId"
-            }
-          }
-        ],
-        "Metadata": {
-          "Runtime.Name": "Components.IComponent",
-          "Common.TypeName": "Ejercicio1AplicadaII.Pages.REstudiante",
-          "Components.NameMatch": "Components.FullyQualifiedNameMatch"
-        }
-      },
-      {
         "HashCode": -1971721376,
         "Kind": "Components.Component",
         "Name": "Ejercicio1AplicadaII.Pages.RNacionalidad",
